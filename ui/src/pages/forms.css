@@ -1,0 +1,41 @@
+@keyframes fading {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.main-container {
+    background: linear-gradient(to right,  var(--saphire) 0%,var(--saphire) 60%,var(--saphire-fade) 50%,var(--saphire-fade) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.form-container {
+
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 40px;
+    padding-top: 70px;
+    padding-bottom: 120px;
+    border-radius: 5px;
+    background-color: white;
+    gap: 20px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    animation:  0.2s fading ease-in;
+}
+
+.greetings {
+
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.greetings-login {
+
+    font-size: 14px;
+    font-weight: 500;
+}

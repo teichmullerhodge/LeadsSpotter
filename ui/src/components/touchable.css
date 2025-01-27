@@ -1,0 +1,27 @@
+.touchable {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    padding: 6px;
+    border-radius: 4px;
+    border: 2px solid var(--saphire);
+    transition: 0.2s;
+    background-color: var(--saphire-clear);
+    color: var(--clear);
+    font-weight: 500;
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+.touchable:hover {
+    border: 2px solid var(--saphire);
+    background-color: #ffffff;
+    color: var(--text-color);
+}
+
+

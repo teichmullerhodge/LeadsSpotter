@@ -1,0 +1,45 @@
+.entry-container {
+    
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.entry {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: 2px solid var(--saphire-fade);
+    transition: 0.2s;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.entry:hover, .entry:focus {
+
+    border: 2px solid var(--saphire);
+}
+
+.entry-label {
+
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+/*override the entry styles*/
+
+.entry-override {
+
+    cursor: pointer;
+    outline: none;
+    width: 100%;
+    padding: 4px;
+    border: none;
+}
