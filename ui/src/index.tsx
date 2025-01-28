@@ -8,7 +8,7 @@ const root = document.getElementById('root')
 const routes = [ 
     
     {
-        path: '/',
+        path: '/chat',
         component: lazy(() => import("./pages/Chat"))
     },
     {

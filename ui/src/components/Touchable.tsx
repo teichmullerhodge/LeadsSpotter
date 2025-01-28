@@ -7,7 +7,8 @@ interface TouchableProperties {
     style: string | JSX.CSSProperties | undefined,
     icon?: JSX.Element | undefined,
     text: string,
-
+    onclick?: () => void,
+    type?: "submit" | "reset" | "button" | undefined,
 }
 
 function Touchable(properties: TouchableProperties){
@@ -15,11 +16,13 @@ function Touchable(properties: TouchableProperties){
     return(
     
             <button 
-            class="touchable"
-            style={properties.style}            
+                class="touchable"
+                type={properties.type}
+                style={properties.style}   
+                on:click={properties.onclick}         
             >
-            {properties.text}
-            {properties.icon}
+                {properties.text}
+                {properties.icon}
            </button>)
 
 }

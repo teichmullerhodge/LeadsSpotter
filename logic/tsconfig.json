@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+      "target": "ES6",                        // Versão do JavaScript gerado
+      "module": "CommonJS",                   // Tipo de módulo, adequado para Node.js
+      "rootDir": "./src",                     // Diretório raiz dos arquivos TypeScript
+      "outDir": "./dist",                     // Diretório de saída dos arquivos compilados
+      "strict": true,                         // Ativa todas as verificações de tipo estritas
+      "esModuleInterop": true,                // Habilita importação de módulos ES6 em CommonJS
+      "skipLibCheck": true,                   // Ignora verificação de tipos em arquivos .d.ts
+      "forceConsistentCasingInFileNames": true, // Garante consistência no uso de maiúsculas e minúsculas
+      "allowJs": false,                       // Desabilita suporte a arquivos .js (somente TS será compilado)
+      "resolveJsonModule": true,              // Permite a importação de arquivos JSON
+      "types": ["node"],                      // Inclui definições de tipo para Node.js
+      "moduleResolution": "node"             // Resolve módulos como o Node.js faz
+    },
+    "include": ["src/**/*"],                  // Inclui todos os arquivos TypeScript na pasta src
+    "exclude": ["node_modules", "**/*.test.ts"] // Exclui node_modules e testes
+  }
+  
