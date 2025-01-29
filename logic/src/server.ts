@@ -1,8 +1,8 @@
 import express,  {Response, Request, NextFunction} from 'express';
 import cors from 'cors';
 import SQL from './connection';
-import { hash_password, hash_session } from './secure';
-import { HashedALGO } from './declarations';
+import { hash_key, hash_password, validate } from './secure';
+import { AuthErrors, HashedALGO } from './declarations';
 import { LoginErrors, RegisterErrors } from './declarations';
 import { UserData } from './declarations';
 import session from "express-session";
@@ -15,6 +15,8 @@ declare module 'express-session' {
 }
 
 const app = express();
+const port = 8080;
+
 app.use(
     session({
       secret: "qEas5ns3gxl41G",
@@ -24,27 +26,25 @@ app.use(
     })
 );
 
-const port = 8080;
 app.use(cors({credentials: true, origin: 'http://localhost:5173'}));
 app.use(express.json());
    
+app.get('/auth', async (req: Request, res: Response): Promise<any> => {
 
-const auth_midleware = (req: Request, res: Response, next: NextFunction) => {
+    const userKey = req.headers.authorization?.split('Bearer ')[1];
+    if(!userKey){
 
-    console.log(JSON.stringify(req.session));
-    console.log(req);
+        return res.status(401).json({"UserAuthenticated" : false, "Reason": AuthErrors.MISSING_USER_KEY})
 
-
-    if (req.session.user) {
-      next();
-    } else {
-      res.status(401).json({ "Message": "Unauthorized" });
     }
-};
-  
 
-app.get("/chat", auth_midleware, (req: Request, res: Response) => {
-        res.status(200).json({ "Message": `Welcome to the chat, ${req.session.user?.username}!` });
+    const isValid = await validate(userKey);
+    if(isValid){
+        return res.status(200).json({"UserAuthenticated" : true, "UserKey" : userKey});
+    }
+
+    return res.status(401).json({"UserAuthenticated" : false, "Reason": AuthErrors.WRONG_USER_KEY})
+
 });
 
 
@@ -61,17 +61,12 @@ app.post('/register', async (req: Request, res: Response): Promise<any> => {
 
     if(!name || !email || !phone || !password) {
 
-        console.log(name);
-        console.log(email);
-        console.log(phone);
-        console.log(password);
-
         return res.status(400).json({"UserCreated" : false, "Reason" : RegisterErrors.MISSING_FIELDS});
     }
 
     
     const emailRows = await SQL`SELECT "Email", "Password" 
-    FROM public.users
+    FROM public."Users"
     WHERE "Email" = ${email}`;
     
     const emailExists = emailRows.length > 0;
@@ -89,20 +84,20 @@ app.post('/register', async (req: Request, res: Response): Promise<any> => {
         Email: email,
         Phone: phone,
         Password: hashedObject.content,
-        PloomesId: ploomesId
+        PloomesId: ploomesId,
+        CreatedAt: new Date(),
+        UserKey: await hash_key(`${email}@${hashedObject.content}`),
 
 
     };
     try {
         
-        await SQL` insert into users ${SQL(userPayload, 'Name', 'Email', 'Phone', 'Password', 'PloomesId')}`;
-        console.log("Usuário inserido!");
-        const uuid: string = await hash_session(`${email}@${password}`)
-        req.session.user = { id: uuid, email: userPayload.Email };
-        req.session.save();
-        console.log("Session created:", req.session.user); 
+        await SQL` insert into "Users" ${SQL(userPayload, 'Name', 'Email', 'Phone', 'Password', 'PloomesId', 'CreatedAt', 'UserKey')}`;
+        return res.status(200).json({
+            "UserCreated": true,
+            "UserKey": userPayload.UserKey  
+        });
 
-        return res.status(200).json({"UserCreated" : true});
     }
 
     catch(e) {
@@ -119,7 +114,6 @@ app.post('/login', async (req: Request, res: Response): Promise<any> => {
     const email = body.Email;
     const password = body.Password;
 
-    console.log(JSON.stringify(body, null, 2));
 
 
     if(!email || !password) {
@@ -139,24 +133,22 @@ app.post('/login', async (req: Request, res: Response): Promise<any> => {
     };
 
     
-    console.log(JSON.stringify(userPayload, null, 2))
-    
     try {
 
         const rows = await SQL`
         SELECT "Email", "Password" 
-        FROM public.users
+        FROM public."Users"
         WHERE "Email" = ${userPayload!.Email} AND "Password" = ${userPayload.Password}`;
 
         const userExists = rows.length > 0;
 
-        console.log(userExists);
         if(userExists){
-            const uuid: string = await hash_session(`${email}@${password}`)
-            req.session.user = { id: uuid, email: userPayload.Email };
-            req.session.save();
-            console.log("Session created:", req.session.user); // Add a debug log
-            return res.status(200).json({"UserAuthenticated" : true})
+            req.session.user = { Email: userPayload.Email };
+            const userKey = await hash_key(`${userPayload.Email}@${userPayload.Password}`)
+            return res.status(200).json({
+                "UserAuthenticated": true,
+                "UserKey": userKey  
+            });
 
         }
 

@@ -27,7 +27,10 @@ export async function new_user(U: UserData, navigate: (path: string) => void): P
     });
 
     if(response.ok){
-        console.log("Usuário criado!");
+
+        const data = await response.json();
+        const userKey = data.UserKey;
+        localStorage.setItem("UserKey", userKey)
         toast.success("Usuário criado!");
         setTimeout(() => {
             navigate('/chat');
@@ -64,7 +67,11 @@ export async function log_user(U: Partial<UserData>, navigate: (path: string) =>
     });
 
     if(response.ok){
-        console.log("Usuário logado!");
+
+        //set the data to the local storage.
+        const data = await response.json();
+        const userKey = data.UserKey;
+        localStorage.setItem("UserKey", userKey)
         toast.success("Usuário logado!");
         setTimeout(() => {
             navigate('/chat');

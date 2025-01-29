@@ -4,6 +4,8 @@ export abstract class ServerRoutes {
     static registerURL: String = this.baseURL + '/register';
     static loginURL: string = this.baseURL + '/login';
     static chatURL: string = this.baseURL + '/chat';
+    static authURL: string = this.baseURL + '/auth';
+
     
 
 

@@ -11,6 +11,8 @@ export interface UserData {
     Email: string,
     Password: string,
     PloomesId: number | null,
+    CreatedAt: string,
+    UserKey: string,
 
 }
 
@@ -27,6 +29,13 @@ export enum RegisterErrors {
     MISSING_FIELDS = "Preencha os campos corretamente!",
     WRONG_CREDENTIALS = "Credenciais incorretas.",
     SERVER_ERROR = "Erro no servidor."
+   
+}
 
-    
+export enum AuthErrors {
+
+    MISSING_USER_KEY = "Chave de autorização não encontrada.",
+    WRONG_USER_KEY = "Chave de autorização incorreta."
+
+
 }

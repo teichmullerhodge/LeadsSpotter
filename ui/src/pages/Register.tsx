@@ -2,7 +2,7 @@ import Touchable from '../components/Touchable';
 import Entry from '../components/Entry';
 import LogoImage from '../components/LogoImage';
 import { A, useNavigate } from '@solidjs/router';
-import { FiMail, FiEye, FiEyeOff, FiUser, FiPhone, FiBookmark, FiAtSign } from 'solid-icons/fi';
+import { FiMail, FiEye, FiEyeOff, FiUser, FiPhone } from 'solid-icons/fi';
 import { createSignal } from 'solid-js';
 import { defaultUserData, UserData } from '../declarations/interfaces';
 import './forms.css';

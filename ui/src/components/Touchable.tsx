@@ -4,7 +4,7 @@ import './touchable.css';
 
 interface TouchableProperties {
 
-    style: string | JSX.CSSProperties | undefined,
+    style?: string | JSX.CSSProperties | undefined,
     icon?: JSX.Element | undefined,
     text: string,
     onclick?: () => void,
