@@ -8,7 +8,7 @@ import { DefaultHeaders } from "./Fetchio";
 export async function new_user(U: UserData, navigate: (path: string) => void): Promise<boolean> {
     
     if(U.Password !== U.ConfirmPassword){
-        toast.error("As senhas não coincidem 🙁");
+        toast.error("As senhas não coincidem");
         return false;
 
     }
@@ -34,7 +34,7 @@ export async function new_user(U: UserData, navigate: (path: string) => void): P
         toast.success("Usuário criado!");
         setTimeout(() => {
             navigate('/chat');
-        }, 1500);
+        }, 1900);
         return true;
     }
 
@@ -75,7 +75,7 @@ export async function log_user(U: Partial<UserData>, navigate: (path: string) =>
         toast.success("Usuário logado!");
         setTimeout(() => {
             navigate('/chat');
-        }, 1500);
+        }, 1900);
         return true;
     }
 

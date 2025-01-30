@@ -1,10 +1,9 @@
-import express,  {Response, Request, NextFunction} from 'express';
+import express,  {Response, Request} from 'express';
 import cors from 'cors';
 import SQL from './connection';
 import { hash_key, hash_password, validate } from './secure';
 import { AuthErrors, HashedALGO } from './declarations';
 import { LoginErrors, RegisterErrors } from './declarations';
-import { UserData } from './declarations';
 import session from "express-session";
 
 
@@ -26,7 +25,7 @@ app.use(
     })
 );
 
-app.use(cors({credentials: true, origin: 'http://localhost:5173'}));
+app.use(cors({credentials: true, origin: '*'}));
 app.use(express.json());
    
 app.get('/auth', async (req: Request, res: Response): Promise<any> => {
@@ -51,8 +50,6 @@ app.get('/auth', async (req: Request, res: Response): Promise<any> => {
 app.post('/register', async (req: Request, res: Response): Promise<any> => {
 
     const body = req.body;
-
-
     const name = body.Name;
     const email = body.Email;
     const phone = body.Phone;
@@ -65,7 +62,7 @@ app.post('/register', async (req: Request, res: Response): Promise<any> => {
     }
 
     
-    const emailRows = await SQL`SELECT "Email", "Password" 
+    const emailRows = await SQL`SELECT "Email" 
     FROM public."Users"
     WHERE "Email" = ${email}`;
     
@@ -74,7 +71,7 @@ app.post('/register', async (req: Request, res: Response): Promise<any> => {
         //409 for conflict
         return res.status(409).json({"UserCreated" : false, "Reason" : RegisterErrors.EMAIL_ALREADY_EXISTS})
     }
-
+    
     const hashedObject: HashedALGO = await hash_password(password);
 
 
@@ -129,7 +126,6 @@ app.post('/login', async (req: Request, res: Response): Promise<any> => {
         Email: email,
         Password: hashedObject.content,
 
-
     };
 
     
@@ -143,7 +139,6 @@ app.post('/login', async (req: Request, res: Response): Promise<any> => {
         const userExists = rows.length > 0;
 
         if(userExists){
-            req.session.user = { Email: userPayload.Email };
             const userKey = await hash_key(`${userPayload.Email}@${userPayload.Password}`)
             return res.status(200).json({
                 "UserAuthenticated": true,
@@ -158,21 +153,11 @@ app.post('/login', async (req: Request, res: Response): Promise<any> => {
     }
 
     catch(e) {
-        console
         return res.status(500).json({"UserAuthenticated" : false, "Reason" : e});
 
     }
 });
 
-app.post("/logout", (req: Request, res: Response) => {
-    req.session.destroy((err) => {
-      if (err) {
-        return res.status(500).json({"Message" : "Failed to log out", "Reason" : err});
-      }
-      res.clearCookie("connect.sid"); 
-      res.status(200).json({ message: "Logged out successfully!" });
-    });
-});
   
 
 app.listen(port, () => {

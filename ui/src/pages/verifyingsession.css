@@ -1,0 +1,38 @@
+.verify-container {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: column;
+    gap: 50px;
+
+}
+
+.info {
+
+    font-size: 32px;
+}
+
+.loader {
+    transition: 0.2s;
+    animation: loading 1s infinite;
+}
+.fading-logo {
+
+    animation: fading 3s infinite;
+    
+}
+@keyframes loading {
+
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
+
+@keyframes fading {
+
+    from { opacity: 0;}
+    to {opacity: 1;}
+    
+}
