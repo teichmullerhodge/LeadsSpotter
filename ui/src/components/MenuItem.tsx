@@ -7,16 +7,19 @@ interface MenuItemProperties {
     text: string,
     onclick?: () => void,
     type?: "submit" | "reset" | "button" | undefined,
-    active?: boolean
+    active?: boolean,
+    logout?: boolean,
 }
 
 function MenuItem(properties: MenuItemProperties){
 
+    let menuClass = properties.active ? "menuitem active" : "menuitem";
+    menuClass = properties.logout ? menuClass + ' logout' : menuClass;
+
     return(
     
             <button
-
-                class={properties.active ? "menuitem active" : "menuitem"}
+                class={menuClass}
                 type={properties.type}
                 on:click={properties.onclick}         
 

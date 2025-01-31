@@ -7,7 +7,7 @@ interface LogoImageProperties {
     width: string,
     height: string,
     class?: string,
-    style: JSX.CSSProperties,
+    style?: JSX.CSSProperties,
     textSize?: string,
 }
 

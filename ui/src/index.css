@@ -11,12 +11,17 @@
 :root {
 
 
-  --saphire: #4668ff;
-  --saphire-clear: #7189f5;
-  --saphire-fade: #b5c2fd;
+  --saphire: #685cfe;
+  --saphire-clear: #948eed;
+  --saphire-fade: #f0eff6;
+  --saphire-bold: #5850ca;
   --smoke: rgb(255, 252, 252);
-  --clear: #feffff;
+  --clear: #f0f3f8;
+  --smoke: #dddbdb;
+  --white: #fff;
   --text-color: #19171a;
+  --ruby: #eb1616;
+  --ruby-fade: #ef7878;
   
   
 
@@ -24,7 +29,7 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #685cfe;
   text-decoration: inherit;
 }
 a:hover {

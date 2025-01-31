@@ -71,6 +71,7 @@ app.post('/register', async (req: Request, res: Response): Promise<any> => {
         //409 for conflict
         return res.status(409).json({"UserCreated" : false, "Reason" : RegisterErrors.EMAIL_ALREADY_EXISTS})
     }
+
     
     const hashedObject: HashedALGO = await hash_password(password);
 

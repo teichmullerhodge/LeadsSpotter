@@ -4,7 +4,7 @@
 }
 
 .main-container {
-    background: linear-gradient(to right,  var(--saphire) 0%,var(--saphire) 60%,var(--saphire-fade) 50%,var(--saphire-fade) 100%);
+    background: linear-gradient(to right,  var(--saphire) 0%,var(--saphire) 60%,var(--saphire-clear) 50%,var(--saphire-clear) 100%);
     display: flex;
     justify-content: center;
     align-items: center;

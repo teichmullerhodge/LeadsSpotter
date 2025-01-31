@@ -8,7 +8,7 @@ export const smoke = getComputedStyle(root).getPropertyValue('--smoke').trim();
 export const clear = getComputedStyle(root).getPropertyValue('--clear').trim();
 export const textColor = getComputedStyle(root).getPropertyValue('--text-color').trim();
 export const white = "#ffffff";
-
+export const black = "#000000";
 
 
 
@@ -20,6 +20,7 @@ export const Colors = {
     smoke: smoke,
     clear: clear,
     textColor: textColor,
-    white: white
+    white: white,
+    black: black
 }
 

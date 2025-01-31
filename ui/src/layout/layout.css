@@ -1,8 +1,18 @@
-.application {
+.app {
 
-    width: 100vw;
-    height: 100vh;
     display: flex;
     flex-direction: column;
-    
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+.content {
+
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    gap: 50px;
+    height: 100vh;
 }

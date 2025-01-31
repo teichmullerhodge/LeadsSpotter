@@ -40,6 +40,7 @@
     cursor: pointer;
     outline: none;
     width: 100%;
+    background: none;
     padding: 4px;
     border: none;
 }
