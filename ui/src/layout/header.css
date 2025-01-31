@@ -1,0 +1,13 @@
+.header {
+
+    display: flex;
+    justify-content: end;
+    padding-right: 7vw;
+    gap: 30px;
+    align-items: center;
+    background-color: var(--saphire-fade);
+    width: 100vw;
+    height: 8vh;
+    
+
+}

@@ -18,7 +18,7 @@ export default function Entry(properties: EntryProperties){
     return(
         <div class="entry-container">
             <span class="entry-label">{properties.label}</span>
-            <div class="entry">
+            <div class="entry" style={properties.style}>
                 <input 
                     value={properties.value}
                     onchange={properties.onchange}

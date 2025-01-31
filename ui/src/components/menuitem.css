@@ -1,0 +1,40 @@
+.menuitem {
+
+    display: flex;
+    align-items: center;
+    gap:10px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 2px solid var(--saphire);
+    transition: 0.2s;
+    color: var(--text-color);
+    font-weight: 500;
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+.menuitem:hover {
+    border: 2px solid var(--clear);
+    background-color: #ffffff;
+    color: var(--text-color);
+    
+}
+
+.menuitem.active {
+
+    background-color: var(--saphire);
+    color: white;
+
+}
+
+.menuitem.active:hover {
+
+    background-color: white;
+    color: var(--text-color);
+
+}
+
+

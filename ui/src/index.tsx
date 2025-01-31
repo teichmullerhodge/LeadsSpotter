@@ -12,6 +12,10 @@ const routes = [
         component: lazy(() => import("./pages/Chat"))
     },
     {
+        path: '/',
+        component: lazy(() => import("./pages/Index"))
+    },
+    {
         path: '/register',
         component: lazy(() => import("./pages/Register"))
     },
