@@ -19,6 +19,7 @@ function MenuItem(properties: MenuItemProperties){
     return(
     
             <button
+                
                 class={menuClass}
                 type={properties.type}
                 on:click={properties.onclick}         

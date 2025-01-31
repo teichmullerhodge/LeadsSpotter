@@ -1,29 +1,16 @@
-import './chat.css';
+import './leads.css';
 import Message from '../components/Message';
 import { Toaster } from 'solid-toast';
-import { logout, is_logged } from '../library/Session';
-import { createEffect, createResource, Show } from 'solid-js';
-import { useNavigate } from '@solidjs/router';
+import { logout } from '../library/Session';
 import Touchable from '../components/Touchable';
 import { FiLogOut } from 'solid-icons/fi';
-import VerifyingSession from './VerifyingSession';
 import Layout from '../layout/Layout';
 
-export default function Chat() {
+export default function Leads() {
 
-    const navigate = useNavigate();
-    const [authStatus] = createResource(is_logged)
-    createEffect(() => {
-
-        if (authStatus() == false) {
-            navigate('/Login');
-        }
-
-    });
 
     return (
-        <Layout>
-             <Show when={authStatus()} fallback={<VerifyingSession/>}>
+        <Layout activeRoute='leads'>
                 <div class="chat-container">
                     <Toaster />
                     <div class="chat">
@@ -36,7 +23,6 @@ export default function Chat() {
                         />
                     </div>
                 </div>
-            </Show> 
         </Layout>
     )
 }

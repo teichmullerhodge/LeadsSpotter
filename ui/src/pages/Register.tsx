@@ -93,8 +93,7 @@ export default function Register() {
                     }
                 />
 
-                <Touchable 
-                    
+                <Touchable                     
                     type='button'
                     text='Cadastrar-se!' 
                     style={{"font-size": "16px", width: "80x", height: "35px", }}

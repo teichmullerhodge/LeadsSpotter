@@ -74,7 +74,7 @@ export async function log_user(U: Partial<UserData>, navigate: (path: string) =>
         localStorage.setItem("UserKey", userKey)
         toast.success("Usuário logado!");
         setTimeout(() => {
-            navigate('/chat');
+            navigate('/');
         }, 1900);
         return true;
     }

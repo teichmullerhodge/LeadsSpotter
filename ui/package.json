@@ -9,7 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.16.8",
     "@solidjs/router": "^0.15.3",
+    "@types/google.maps": "^3.58.1",
     "solid-icons": "^1.1.0",
     "solid-js": "^1.9.3",
     "solid-toast": "^0.5.0"

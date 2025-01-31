@@ -2,20 +2,36 @@ import { JSX } from "solid-js";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import './layout.css'
+import { createResource, createEffect } from "solid-js";
+import { useNavigate } from "@solidjs/router";
+import { is_logged } from "../library/Session";
 
 interface LayoutProperties {
 
-    children: JSX.Element | JSX.Element[]
+    children?: JSX.Element | JSX.Element[]
+    activeRoute: 'index' | 'leads' | 'maps' | 'configurations'
 }
 
 export default function Layout(properties: LayoutProperties){
+    const navigate = useNavigate()
+    const [authStatus] = createResource(is_logged)
+    createEffect(() => {
+
+        if (authStatus() == false) {
+            navigate('/login');
+        }
+
+    });
+
 
     return(
         <div class="app">
                 <Header/>
             <div class="content">
-                <Sidebar/>
-                {properties.children}
+                <Sidebar activeRoute={properties.activeRoute} />
+                <div class="children-container">
+                    {properties.children}
+                </div>
             </div>
         </div>
     )    

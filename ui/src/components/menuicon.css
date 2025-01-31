@@ -1,9 +1,12 @@
-.menuitem {
+
+
+.icon-container {
 
     overflow: hidden;
     white-space: nowrap;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap:10px;
     padding: 12px;
     border-radius: 4px;
@@ -20,20 +23,20 @@
     background-color: var(--white);
 }
 
-.menuitem:hover {
+.icon-container:hover {
     background-color: var(--saphire);
     color: var(--white);
     
 }
 
-.menuitem.active {
+.icon-container.active {
 
     background-color: var(--saphire);
     color: white;
 
 }
 
-.menuitem.logout:hover {
+.icon-container.logout:hover {
 
     background-color: var(--ruby);
     color: white;

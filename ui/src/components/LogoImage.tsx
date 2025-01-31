@@ -9,6 +9,7 @@ interface LogoImageProperties {
     class?: string,
     style?: JSX.CSSProperties,
     textSize?: string,
+    hasText?: boolean
 }
 
 
@@ -22,10 +23,14 @@ export default function LogoImage(properties: LogoImageProperties){
                 width={properties.width}
                 height={properties.height}
             ></img>
-            <span 
-                class="logo-text"
-                style={{"font-size": properties.textSize}}
-            >Saphire</span>
+            {
+            properties.hasText ? 
+                <span
+                    class="logo-text"
+                    style={{"font-size": properties.textSize}}
+                >Saphire</span>
+                : <></>
+            }
         </div>
     );
 
