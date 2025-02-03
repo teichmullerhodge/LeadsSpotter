@@ -30,8 +30,9 @@ export default function Login() {
             <Toaster/>
             <form class='form-container'>
                 <LogoImage 
-                    width="10%"
-                    height="10%"                
+                    width="15%"
+                    height="15%"   
+                    hasText={true}             
                 />
                 <span class="greetings">Bem vindo! 👋</span>
                 <span class="greetings-login">Faça login abaixo.</span>
@@ -41,7 +42,7 @@ export default function Login() {
                     label='Email'
                     placeholder='Seu email' 
                     type='text'
-                    icon={<FiMail on:click={() => alert('Hi!')}/>}                    
+                    icon={<FiMail size={18} on:click={() => alert('Hi!')}/>}                    
                 />
                 <Entry 
                     value={userCredentials().Password}
@@ -50,10 +51,10 @@ export default function Login() {
                     placeholder='Sua senha' 
                     type={passwordHidden() ? 'password' : 'text'}
                     icon={passwordHidden() ? 
-                        <FiEye 
+                        <FiEye size={18}
                         on:click={() => passwordNewState()}
                         /> : 
-                        <FiEyeOff
+                        <FiEyeOff size={18}
                         on:click={() => passwordNewState()}
                         />
                     }

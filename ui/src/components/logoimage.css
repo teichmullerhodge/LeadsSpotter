@@ -11,3 +11,10 @@
     font-weight: 500;
     font-size: 26px;
 }
+
+.logo {
+
+    background-color: var(--saphire-clear);
+    border-radius: 50px;
+    padding: 2px;
+}

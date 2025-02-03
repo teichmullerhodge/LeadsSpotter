@@ -8,6 +8,8 @@ import Index from './pages/Index'
 import Leads from './pages/Leads'
 import Maps from './pages/Maps'
 import Configurations from './pages/Configurations'
+import Laboratory from './pages/Laboratory'
+import Chat from './pages/Chat'
 
 
 const root = document.getElementById('root')
@@ -26,8 +28,16 @@ const routes = [
         component: Maps
     },
     {
+        path: '/chat',
+        component: Chat
+    },
+    {
         path: '/configurations',
         component: Configurations
+    },
+    {
+        path: '/laboratory',
+        component: Laboratory
     },
     {
         path: '/register',

@@ -1,4 +1,3 @@
-import { FiArrowLeftCircle, FiArrowRightCircle, FiHome, FiLogOut, FiMap, FiMoon, FiSearch, FiSettings, FiUser } from 'solid-icons/fi';
 import './sidebar.css';
 import MenuItem from '../components/MenuItem';
 import LogoImage from '../components/LogoImage';
@@ -9,10 +8,11 @@ import { logout } from '../library/Session';
 import { createSignal } from 'solid-js';
 import MenuIcon from '../components/MenuIcon';
 import { LayoutState } from '../library/State';
+import { BiRegularArrowToLeft, BiRegularArrowToRight, BiRegularCog, BiRegularHome, BiRegularLogOut, BiRegularMap, BiRegularMessageRounded, BiRegularMoon, BiRegularSearch, BiRegularUser } from 'solid-icons/bi';
 
 interface SidebarProperties {
 
-    activeRoute: 'index' | 'leads' | 'maps' | 'configurations',
+    activeRoute: 'index' | 'leads' | 'maps' | 'configurations' | 'chat',
 
 }
 
@@ -29,10 +29,11 @@ export default function Sidebar({ activeRoute }: SidebarProperties) {
     }
 
     const menuItems = [
-        { text: 'Resumo', route: 'index', icon: <FiHome size={16} /> },
-        { text: 'Leads', route: 'leads', icon: <FiUser size={16} /> },
-        { text: 'Mapa de leads', route: 'maps', icon: <FiMap size={16} /> },
-        { text: 'Configurações', route: 'configurations', icon: <FiSettings size={16} /> },
+        { text: 'Resumo', route: 'index', icon: <BiRegularHome size={19} /> },
+        { text: 'Leads', route: 'leads', icon: <BiRegularUser size={19} /> },
+        { text: 'Mapa de leads', route: 'maps', icon: <BiRegularMap size={19} /> },
+        { text: 'IA Sales', route: 'chat', icon: <BiRegularMessageRounded size={19}/>},
+        { text: 'Configurações', route: 'configurations', icon: <BiRegularCog size={19} /> },
 
     ];
 
@@ -43,6 +44,7 @@ export default function Sidebar({ activeRoute }: SidebarProperties) {
                            height='30' 
                            style={{ "margin-top": "20px", "margin-bottom": "30px" }} 
                            textSize='20px' 
+                           hasText={true}
                 />
                     : 
                 <LogoImage width='30' 
@@ -55,14 +57,16 @@ export default function Sidebar({ activeRoute }: SidebarProperties) {
             {expanded() ? (
                 <MenuEntry
                     type='search'
-                    icon={<FiSearch onClick={() => alert('Busca sendo feita...')} />}
+                    icon={<BiRegularSearch onClick={() => alert('Busca sendo feita...')} />}
                     placeholder='Buscar'
                     value=''
                     style={{ "background-color": "var(--saphire-fade)" }}
                 />
             ) : (
-                <MenuIcon icon={<FiSearch size={16} />} 
-                onclick={() => expand_nav(!expanded())} />
+                <MenuIcon icon={<BiRegularSearch size={19} />} 
+                onclick={() => expand_nav(!expanded())} 
+                tooltip='Buscar'
+                />
             )}
             
             {menuItems.map(({ text, route, icon }) => (
@@ -76,6 +80,7 @@ export default function Sidebar({ activeRoute }: SidebarProperties) {
                     <MenuIcon icon={icon} 
                               onclick={() => navigate(`/${route}`)} 
                               active={activeRoute === route}
+                              tooltip={text}
                     />
                 )
             ))}
@@ -85,25 +90,27 @@ export default function Sidebar({ activeRoute }: SidebarProperties) {
                 expanded() ? 
                 <MenuItem text='Logout' 
                           logout={true} 
-                          icon={<FiLogOut size={16}/>} 
+                          icon={<BiRegularLogOut size={19}/>} 
                           onclick={logout} 
                 />
 
-                : <MenuIcon icon={<FiLogOut size={16}/>}
+                : <MenuIcon icon={<BiRegularLogOut size={19}/>}
                             onclick={logout}
                             logout={true}
+                            tooltip='Logout'
                     />
             }
             {
                 expanded() ? 
-                <ToogleSwitch label='Modo escuro' icon={<FiMoon />} />
+                <ToogleSwitch label='Modo escuro' icon={<BiRegularMoon />} />
                 : 
                 <ToogleSwitch/>
 
             }
             <MenuIcon 
-                icon={expanded() ? <FiArrowLeftCircle size={16} /> : <FiArrowRightCircle size={16}/>} 
+                icon={expanded() ? <BiRegularArrowToLeft size={19} /> : <BiRegularArrowToRight size={19}/>} 
                 onclick={() => expand_nav(!expanded())} 
+                tooltip='Expandir'
             />  
         </div>
     );

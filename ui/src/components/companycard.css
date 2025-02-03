@@ -1,0 +1,72 @@
+.card-container {
+
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+    border-radius: 8px;
+    width: 100%;
+    height: 10vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    transition: 0.2s;
+}
+
+.card-container:hover {
+    cursor: pointer;
+    background-color: var(--saphire-fade);
+
+}
+
+.company-logo {
+
+    border-radius: 8px;
+    background-color: var(--saphire-fade);
+    padding: 2px;
+}
+.info-container {
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.card-title, .card-phone, .card-owner {
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+}
+
+.status-container.new {
+
+    background-color: var(--new);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.status-container.open {
+
+    background-color: var(--open);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+
+.status-container.won {
+
+    background-color: var(--won);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.status-container.lost {
+
+    background-color: var(--lost);
+    padding: 10px;
+    border-radius: 8px;
+}

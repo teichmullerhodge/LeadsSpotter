@@ -31,10 +31,11 @@ export default function Register() {
             <Toaster/>
             <form class='form-container'>
                 <LogoImage 
-                    width="10%"
-                    height="10%"                
+                    width="15%"
+                    height="15%"       
+                    hasText={true}         
                 />
-                <span class="greetings">Bom vê-lo por aqui! Vamos começar? 💎</span>
+                <span class="greetings">Bom vê-lo por aqui! Vamos começar? 🎯</span>
                 <span class="greetings-login">Crie sua conta abaixo.</span>
                 <Entry 
 
@@ -43,7 +44,7 @@ export default function Register() {
                     label='Nome'
                     placeholder='Seu nome' 
                     type='text'
-                    icon={<FiUser/>}                    
+                    icon={<FiUser size={18}/>}                    
 
                 />
                 <Entry 
@@ -52,7 +53,7 @@ export default function Register() {
                     label='Email'
                     placeholder='Seu email' 
                     type='text'
-                    icon={<FiMail/>}                    
+                    icon={<FiMail size={18}/>}                    
                 />
                 <Entry 
                     value={userData().Phone}
@@ -60,7 +61,7 @@ export default function Register() {
                     label='Telefone'
                     placeholder='Seu telefone' 
                     type='text'
-                    icon={<FiPhone/>}                    
+                    icon={<FiPhone size={18}/>}                    
                 />
                 <Entry 
                     value={userData().Password}
@@ -69,10 +70,10 @@ export default function Register() {
                     placeholder='Senha' 
                     type={passwordHidden() ? 'password' : 'text'}
                     icon={passwordHidden() ? 
-                        <FiEye 
+                        <FiEye size={18}
                         on:click={() => passwordNewState()}
                         /> : 
-                        <FiEyeOff
+                        <FiEyeOff size={18}
                         on:click={() => passwordNewState()}
                         />
                     }
@@ -84,10 +85,10 @@ export default function Register() {
                     onchange={(e: any) => update_user_value("ConfirmPassword", e.currentTarget.value)}
                     type={passwordHidden() ? 'password' : 'text'}
                     icon={passwordHidden() ? 
-                        <FiEye 
+                        <FiEye size={18}
                         on:click={() => passwordNewState()}
                         /> : 
-                        <FiEyeOff
+                        <FiEyeOff size={18}
                         on:click={() => passwordNewState()}
                         />
                     }

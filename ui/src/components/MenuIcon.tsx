@@ -6,7 +6,8 @@ interface MenuIconProperties {
     icon: JSX.Element,
     logout?: boolean,
     onclick?: () => void,
-    active?: boolean
+    active?: boolean,
+    tooltip?: string,
 }
 
 function MenuIcon(properties: MenuIconProperties){
@@ -16,7 +17,7 @@ function MenuIcon(properties: MenuIconProperties){
 
     return(
     
-            <div class={iconClass} 
+            <div class={iconClass} title={properties.tooltip}
                  onclick={properties.onclick}>
                 {properties.icon}
            </div>)

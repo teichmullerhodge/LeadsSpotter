@@ -9,7 +9,7 @@ import { is_logged } from "../library/Session";
 interface LayoutProperties {
 
     children?: JSX.Element | JSX.Element[]
-    activeRoute: 'index' | 'leads' | 'maps' | 'configurations'
+    activeRoute: 'index' | 'leads' | 'maps' | 'configurations' | 'chat'
 }
 
 export default function Layout(properties: LayoutProperties){

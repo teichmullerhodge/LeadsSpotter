@@ -9,6 +9,8 @@ interface MenuItemProperties {
     type?: "submit" | "reset" | "button" | undefined,
     active?: boolean,
     logout?: boolean,
+    tooltip?: string,
+
 }
 
 function MenuItem(properties: MenuItemProperties){
@@ -19,7 +21,7 @@ function MenuItem(properties: MenuItemProperties){
     return(
     
             <button
-                
+                title={properties.tooltip}
                 class={menuClass}
                 type={properties.type}
                 on:click={properties.onclick}         

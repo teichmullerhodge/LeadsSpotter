@@ -1,0 +1,35 @@
+
+.chat-entry {
+
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    padding: 8px;
+    border-radius: 5px;
+    border: 2px solid var(--saphire-fade);
+    transition: 0.2s;
+    cursor: pointer;
+    background-color: var(--saphire-fade);
+    height: 10vh;
+
+}
+
+.chat-entry:hover, .chat-entry:focus {
+
+    border: 2px solid var(--saphire);
+}
+
+
+/*override the entry styles*/
+
+.chat-entry-override {
+
+    cursor: pointer;
+    outline: none;
+    width: 100%;
+    background: none;
+    padding: 4px;
+    border: none;
+    max-height: 15vh;
+
+}
