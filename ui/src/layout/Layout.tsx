@@ -26,13 +26,13 @@ export default function Layout(properties: LayoutProperties){
 
     return(
         <div class="app">
-                <Header/>
             <div class="content">
                 <Sidebar activeRoute={properties.activeRoute} />
                 <div class="children-container">
                     {properties.children}
                 </div>
             </div>
+            <Header/>
         </div>
     )    
 }

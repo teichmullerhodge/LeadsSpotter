@@ -1,7 +1,7 @@
 .sidebar {
 
     width: 12vw;
-    height: 90vh;
+    height: 100vh;
     display: flex;
     margin-left: 20px;
     align-items: center;
@@ -17,7 +17,7 @@
 .sidebar.min {
 
     width: 5vw;
-    height: 90vh;
+    height: 100vh;
     display: flex;
     margin-left: 20px;
     align-items: center;
