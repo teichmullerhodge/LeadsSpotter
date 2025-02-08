@@ -24,11 +24,8 @@ export default function LogoImage(properties: LogoImageProperties){
             ></img>
             {
             properties.hasText ? 
-                <span
-                    class="logo-text"
-                    style={{"font-size": properties.textSize}}
-                >Leadspotter</span>
-                : <></>
+            <span class="lead">Lead <span class="spotter">spotter</span></span>
+            : <></>
             }
         </div>
     );

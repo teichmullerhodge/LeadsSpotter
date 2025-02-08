@@ -1,7 +1,8 @@
 import Touchable from '../components/Touchable'; 
 import Entry from '../components/Entry';
 import LogoImage from '../components/LogoImage';
-import { A, useNavigate } from '@solidjs/router';
+import { useNavigate } from '@solidjs/router';
+import Link from '../components/Link';
 import { FiMail, FiEye, FiEyeOff } from 'solid-icons/fi';
 import { createSignal } from 'solid-js';
 import CheckBox from '../components/CheckBox';
@@ -27,28 +28,27 @@ export default function Login() {
     return(
 
         <div class="main-container">
+            <div class="forms-header">
+                <LogoImage width='30px' height='30px' hasText={true}/>
+                <Link href="/help" text='Ajuda'/>
+            </div>
             <Toaster/>
             <form class='form-container'>
-                <LogoImage 
-                    width="15%"
-                    height="15%"   
-                    hasText={true}             
-                />
-                <span class="greetings">Bem vindo! 👋</span>
+                <span class="greetings">Iniciar sessão</span>
                 <span class="greetings-login">Faça login abaixo.</span>
                 <Entry 
                     value={userCredentials().Email}
                     onchange={(e: any) => update_user_credentials("Email", e.currentTarget.value)}
-                    label='Email'
-                    placeholder='Seu email' 
+                    label='Email ou seu usuário'
+                    placeholder='' 
                     type='text'
                     icon={<FiMail size={18} on:click={() => alert('Hi!')}/>}                    
                 />
                 <Entry 
                     value={userCredentials().Password}
                     onchange={(e: any) => update_user_credentials("Password", e.currentTarget.value)}
-                    label='Password'
-                    placeholder='Sua senha' 
+                    label='Senha'
+                    placeholder='' 
                     type={passwordHidden() ? 'password' : 'text'}
                     icon={passwordHidden() ? 
                         <FiEye size={18}
@@ -62,16 +62,27 @@ export default function Login() {
                 <CheckBox label='Lembrar sessão?'/>
                 <Touchable 
                     type='button'
-                    text='Entrar!' 
-                    style={{"font-size": "16px", width: "80x", height: "35px"}}
+                    text='Iniciar sessão' 
+                    style={{"font-size": "16px", width: "40x", height: "45px"}}
                     onclick={() => log_user(userCredentials(), navigate)}
                 
                 />
-                <span>Ainda não possui uma conta? 
-                    <A href='/register'>Cadastrar-se</A>
+                <span class="centered-register">Novo por aqui? 
+                    <Link href='/register' text='Cadastre-se'/>
                 </span>
 
             </form>
+
+            <div class="footer">
+                <span class="subtitle">Ampliando suas vendas</span>
+                <div class="mock">
+                    <Link href="usage" text='Termos'/>
+                    <span> | </span>
+                    <Link href="politics" text='Política de privacidade'/>
+                    <span> | Versão Beta: </span>
+                    <Link href="changelog" text='Changelog'/>                
+                </div>
+            </div>
     
             </div>
                         

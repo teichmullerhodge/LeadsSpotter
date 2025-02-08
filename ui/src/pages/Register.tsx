@@ -1,13 +1,13 @@
 import Touchable from '../components/Touchable'; 
 import Entry from '../components/Entry';
 import LogoImage from '../components/LogoImage';
-import { A, useNavigate } from '@solidjs/router';
+import { useNavigate } from '@solidjs/router';
 import { FiMail, FiEye, FiEyeOff, FiUser, FiPhone } from 'solid-icons/fi';
 import { createSignal } from 'solid-js';
 import { defaultUserData, UserData } from '../declarations/interfaces';
 import './forms.css';
 import { Toaster } from 'solid-toast';
-
+import Link from '../components/Link';
 import { new_user } from '../library/DatabaseCommunication';
 
 
@@ -28,21 +28,21 @@ export default function Register() {
     return(
 
         <div class="main-container">
+            <div class="forms-header">
+                <LogoImage width='30px' height='30px' hasText={true}/>
+                <Link href="/help" text='Ajuda'/>
+            </div>
+            
             <Toaster/>
             <form class='form-container'>
-                <LogoImage 
-                    width="15%"
-                    height="15%"       
-                    hasText={true}         
-                />
-                <span class="greetings">Bom vê-lo por aqui! Vamos começar? 🎯</span>
-                <span class="greetings-login">Crie sua conta abaixo.</span>
+                <span class="greetings">Vamos começar? Crie sua conta 🎯</span>
+                <span class="greetings-login">Registre-se abaixo.</span>
                 <Entry 
 
                     value={userData().Name}
                     onchange={(e: any) => update_user_value("Name", e.currentTarget.value)}
                     label='Nome'
-                    placeholder='Seu nome' 
+                    placeholder='' 
                     type='text'
                     icon={<FiUser size={18}/>}                    
 
@@ -51,7 +51,7 @@ export default function Register() {
                     value={userData().Email}
                     onchange={(e: any) => update_user_value("Email", e.currentTarget.value)}
                     label='Email'
-                    placeholder='Seu email' 
+                    placeholder='' 
                     type='text'
                     icon={<FiMail size={18}/>}                    
                 />
@@ -59,7 +59,7 @@ export default function Register() {
                     value={userData().Phone}
                     onchange={(e: any) => update_user_value("Phone", e.currentTarget.value)}
                     label='Telefone'
-                    placeholder='Seu telefone' 
+                    placeholder='' 
                     type='text'
                     icon={<FiPhone size={18}/>}                    
                 />
@@ -67,7 +67,7 @@ export default function Register() {
                     value={userData().Password}
                     onchange={(e: any) => update_user_value("Password", e.currentTarget.value)}
                     label='Senha'
-                    placeholder='Senha' 
+                    placeholder='' 
                     type={passwordHidden() ? 'password' : 'text'}
                     icon={passwordHidden() ? 
                         <FiEye size={18}
@@ -80,7 +80,7 @@ export default function Register() {
                 />
                 <Entry 
                     label='Confirme sua senha'
-                    placeholder='Senha' 
+                    placeholder='' 
                     value={userData().ConfirmPassword}
                     onchange={(e: any) => update_user_value("ConfirmPassword", e.currentTarget.value)}
                     type={passwordHidden() ? 'password' : 'text'}
@@ -96,16 +96,25 @@ export default function Register() {
 
                 <Touchable                     
                     type='button'
-                    text='Cadastrar-se!' 
-                    style={{"font-size": "16px", width: "80x", height: "35px", }}
+                    text='Criar conta' 
+                    style={{"font-size": "16px", width: "40x", height: "45px"}}
                     onclick={async () => await new_user(userData(), navigate)}
                 />
-                <span>Já possui uma conta? 
-                    <A href='/login'>Login</A>
+                <span class="centered-register">Já possui uma conta? 
+                    <Link href='/login' text='Login'/>
                 </span>
 
             </form>
-    
+                <div class="footer">
+                    <span class="subtitle">Ampliando suas vendas</span>
+                    <div class="mock">
+                        <Link href="usage" text='Termos'/>
+                        <span> | </span>
+                        <Link href="politics" text='Política de privacidade'/>
+                        <span> | Versão Beta: </span>
+                        <Link href="changelog" text='Changelog'/>                
+                    </div>
+                </div>
             </div>
                         
     )

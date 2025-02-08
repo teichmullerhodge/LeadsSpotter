@@ -7,7 +7,8 @@
   outline: none;
   /* font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Oxygen, Open Sans, sans-serif */
   font-family: "InterVariable", system-ui, sans-serif;
-
+  font-style: normal;
+  letter-spacing: -0.8px;
 }
 
 :root {
@@ -22,6 +23,7 @@
   --smoke: #dddbdb;
   --white: #fff;
   --text-color: #19171a;
+  --title: #0a0a0a;
   --ruby: #eb1616;
   --ruby-fade: #ef7878;
   
