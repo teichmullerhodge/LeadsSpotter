@@ -1,9 +1,15 @@
 import './home.css';
-
+import Layout from '../layout/Layout';
 
 
 export default function Home(){
+    
+    return(
+        <Layout>
 
-    return(<h1>Hello, world!</h1>);
+
+            
+        </Layout>
+    );
     
 }
