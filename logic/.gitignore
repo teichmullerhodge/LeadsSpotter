@@ -1,2 +1,4 @@
 build
 Crow
+connections/credentials.h
+*.elf

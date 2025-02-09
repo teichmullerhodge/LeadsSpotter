@@ -5,7 +5,7 @@ import { DefaultHeaders } from "./Fetchio";
 
 
 
-export async function new_user(U: UserData, navigate: (path: string) => void): Promise<boolean> {
+export async function register_user(U: UserData, navigate: (path: string) => void): Promise<boolean> {
     
     if(U.Password !== U.ConfirmPassword){
         toast.error("As senhas não coincidem");

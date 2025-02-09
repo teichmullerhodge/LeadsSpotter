@@ -8,7 +8,7 @@ import { defaultUserData, UserData } from '../declarations/interfaces';
 import './forms.css';
 import { Toaster } from 'solid-toast';
 import Link from '../components/Link';
-import { new_user } from '../library/DatabaseCommunication';
+import { register_user } from '../library/DatabaseCommunication';
 
 
 
@@ -98,7 +98,7 @@ export default function Register() {
                     type='button'
                     text='Criar conta' 
                     style={{"font-size": "16px", width: "40x", height: "45px"}}
-                    onclick={async () => await new_user(userData(), navigate)}
+                    onclick={async () => await register_user(userData(), navigate)}
                 />
                 <span class="centered-register">Já possui uma conta? 
                     <Link href='/login' text='Login'/>

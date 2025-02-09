@@ -1,78 +1,136 @@
 #include "crow.h"
-#include <math.h>
-/**
- * for "all" natural numbers
- * 
- */
-typedef unsigned long long int natural;
+#include "crow/middlewares/cors.h"
+#include "connections/database.hpp"
+#include "safe/hashpp.hpp"
+#include "network/http.hpp"
 
+Database PG_INSTANCE;
 
-bool is_prime(natural n){
+#define VERIFY_DB_RUNTIME() if(!PG_INSTANCE.is_connected()){throw std::runtime_error(CONNECTION_REFUSED);}
 
-    if(n % 2 == 0 || n < 2) return false;
-    if(n == 2 || n == 3) return true;
+class CORS {
+public:
+    struct context {};
 
-    for(natural k = 3; k < sqrt(n); k+= 2){
-        if(n % k == 0) return false;
+    void before_handle(crow::request& /*req*/, crow::response& res, context& /*ctx*/) {
+        res.add_header("Access-Control-Allow-Origin", "*");
+        res.add_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
+        res.add_header("Access-Control-Allow-Headers", "Content-Type");
     }
 
-    return true;
-
-}
+    void after_handle(crow::request& /*req*/, crow::response& res, context& /*ctx*/) {
+        res.add_header("Access-Control-Allow-Origin", "*");
+        res.add_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
+        res.add_header("Access-Control-Allow-Headers", "Content-Type");
+    }
+};
 
 int main() {
-    crow::SimpleApp app;
 
-    // Definindo uma rota básica
-    CROW_ROUTE(app, "/")([](){
-        return "Hello, Crow!";
+    VERIFY_DB_RUNTIME();
+    crow::App<CORS> app;
+
+
+    CROW_ROUTE(app, "/login").methods("POST"_method)([](const crow::request& req) {
+        
+        crow::json::wvalue response;
+
+     try {
+
+        crow::json::rvalue jsonBody = crow::json::load(req.body);
+        if (!jsonBody){
+            response["Reason"] = HTTP::NO_BODY;
+            return crow::response(HTTP::BAD_REQUEST, response);
+        }
+
+        std::string email = jsonBody["Email"].s();
+        std::string password = jsonBody["Password"].s();
+
+        if(email.empty() || password.empty()){
+            response["Reason"] = HTTP::MISSING_FIELDS;
+            return crow::response(HTTP::BAD_REQUEST, response);
+        }
+
+       auto [isValidAccess, userKey] = PG_INSTANCE.is_valid_login_credentials(email, password);
+
+       if(isValidAccess){
+        if(!userKey.has_value()){
+
+            Logger::log(HTTP::VIOLATION_CONSTRAINTS, LoggerStatus::ERROR);
+            response["Reason"] = HTTP::GENERIC_ERROR; 
+            return crow::response(HTTP::INTERNAL_SERVER_ERROR, response);
+
+        }    
+
+        response["Message"] = HTTP::ACCESS_GRANTED;
+        response["UserKey"] = userKey.value();
+        return crow::response(HTTP::OK, response);
+
+       }
+
+       response["Reason"] = HTTP::WRONG_CREDENTIALS;
+       return crow::response(HTTP::UNAUTHORIZED, response);
+
+     }
+
+     catch (const std::exception& e){
+        Logger::log(e.what(), LoggerStatus::ERROR);
+        response["Reason"] = e.what();
+        return crow::response(HTTP::INTERNAL_SERVER_ERROR, response);
+     }
+       
     });
 
-    CROW_ROUTE(app, "/json")([](){
-        crow::json::wvalue x;
-        x["message"] = "Hello, Crow!";
-        return x;
-    });
+    CROW_ROUTE(app, "/register").methods("POST"_method)([](const crow::request& req) {
+        
+        crow::json::wvalue response;
 
-    CROW_ROUTE(app, "/is-prime/<string>")([](const std::string& number_ref){
-            std::stringstream stream(number_ref);
-            natural number;
-            stream >> number;
-            if(stream.fail()){
-                crow::json::wvalue errorResponse;
-                errorResponse["Reason"] = "Bad request. A number is expected";
-                return crow::response(400, errorResponse);
+        try {
 
+            auto jsonBody = crow::json::load(req.body);
+            if (!jsonBody){
+                response["Reason"] = HTTP::NO_BODY;
+                return crow::response(HTTP::BAD_REQUEST, response);
             }
-            crow::json::wvalue response;
-            response["IsPrime"] = is_prime(number);
-            return crow::response(200, response);
-    });
 
-    CROW_ROUTE(app, "/number-info/<string>")([](const std::string& number_ref){
+            std::string username = jsonBody["Name"].s();
+            std::string email = jsonBody["Email"].s();
+            std::string phone = jsonBody["Phone"].s();
+            std::string password = jsonBody["Password"].s();
+            std::optional<int> ploomesId = jsonBody["PloomesId"].i();
 
-        std::stringstream stream(number_ref);
-        natural number;
-        stream >> number;
-        if(stream.fail()){
-            crow::json::wvalue errorResponse;
-            errorResponse["Reason"] = "Bad request. A number is expected";
-            return crow::response(400, errorResponse);
+            if(username.empty() || email.empty() || phone.empty() || password.empty()){
+                response["Reason"] = HTTP::MISSING_FIELDS;
+                return crow::response(HTTP::BAD_REQUEST, response);
+            }
+
+            if(PG_INSTANCE.email_exists(email)){
+                response["Reason"] = HTTP::EMAIL_EXISTS;
+                return crow::response(HTTP::CONFLICT, response);
+            }
+
+            std::optional<std::string> hashedPass = Generator::hash_password(password.c_str());
+            std::optional<std::string> userKey = Generator::generate_api_key();
+            
+            if(hashedPass.has_value() && userKey.has_value()){
+                PG_INSTANCE.new_user(username, email, phone, hashedPass.value(), ploomesId, userKey.value());
+                response["UserKey"] = userKey.value();
+                return crow::response(HTTP::CREATED, response);
+            } else {
+                response["Reason"] = HTTP::GENERIC_ERROR;
+                return crow::response(HTTP::INTERNAL_SERVER_ERROR, response);
+            }
 
         }
 
-        crow::json::wvalue response;
-        response["IsPrime"] = is_prime(number);
-        response["IsOdd"] = number % 2 != 0;
-        response["IsEven"] = number % 2 == 0;
-        return crow::response(200, response);
-
+        catch (const std::exception& e){
+            Logger::log(e.what(), LoggerStatus::ERROR);
+            response["Reason"] = e.what();
+            return crow::response(HTTP::INTERNAL_SERVER_ERROR, response);
+        }
     });
 
-    CROW_ROUTE(app,"/even-odd/<int>")([](int count){
-        std::cout << count << std::endl;
-        return count % 2 == 0 ? crow::response(200, "Even") : crow::response(200, "Odd");
-    });
 
+ 
     app.port(8080).multithreaded().run();
 }
