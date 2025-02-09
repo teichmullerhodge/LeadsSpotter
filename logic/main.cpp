@@ -6,8 +6,8 @@
 #include "openai/chat.hpp"
 
 Database PG_INSTANCE;
-
 #define VERIFY_DB_RUNTIME() if(!PG_INSTANCE.is_connected()){throw std::runtime_error(CONNECTION_REFUSED);}
+
 
 class CORS {
 public:
@@ -28,9 +28,8 @@ public:
 
 int main() {
 
-    VERIFY_DB_RUNTIME();
     crow::App<CORS> app;
-    
+    VERIFY_DB_RUNTIME();
 
     CROW_ROUTE(app, "/login").methods("POST"_method)([](const crow::request& req) {
         
@@ -51,8 +50,8 @@ int main() {
             response["Reason"] = HTTP::MISSING_FIELDS;
             return crow::response(HTTP::BAD_REQUEST, response);
         }
-
-       auto [isValidAccess, userKey] = PG_INSTANCE.is_valid_login_credentials(email, password);
+        
+        auto [isValidAccess, userKey] = PG_INSTANCE.is_valid_login_credentials(email, password);
 
        if(isValidAccess){
         if(!userKey.has_value()){
