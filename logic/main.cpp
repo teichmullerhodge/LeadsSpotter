@@ -29,7 +29,7 @@ int main() {
 
     VERIFY_DB_RUNTIME();
     crow::App<CORS> app;
-
+    
 
     CROW_ROUTE(app, "/login").methods("POST"_method)([](const crow::request& req) {
         
@@ -75,7 +75,7 @@ int main() {
 
      catch (const std::exception& e){
         Logger::log(e.what(), LoggerStatus::ERROR);
-        response["Reason"] = e.what();
+        response["Reason"] = HTTP::GENERIC_ERROR;
         return crow::response(HTTP::INTERNAL_SERVER_ERROR, response);
      }
        
@@ -125,7 +125,7 @@ int main() {
 
         catch (const std::exception& e){
             Logger::log(e.what(), LoggerStatus::ERROR);
-            response["Reason"] = e.what();
+            response["Reason"] = HTTP::GENERIC_ERROR;
             return crow::response(HTTP::INTERNAL_SERVER_ERROR, response);
         }
     });
