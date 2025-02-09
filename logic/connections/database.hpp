@@ -6,7 +6,6 @@
 #include "queries.h"
 #include <pqxx/pqxx> 
 
-
 #define CONNECTION_REFUSED "Could not connect to database"
 #define EXCEPTION_OCURRED "Exception when trying to connect to the database\n"
 
@@ -54,10 +53,11 @@ class Database {
 
 
         std::pair<bool, std::optional<std::string>> is_valid_login_credentials(const std::string& userMail, const std::string& _inputPassword) {
-
+            
             pqxx::work transaction{C};
             pqxx::result result = transaction.exec_params(Queries::AuthenticationQuery, userMail);
             if (result.empty()) {
+                transaction.commit();
                 return {false, std::nullopt}; 
             }
 
@@ -65,6 +65,7 @@ class Database {
             std::string userKey = result[0][1].as<std::string>();
 
             bool isValid = Generator::verify_password(_inputPassword.c_str(), storedHash.c_str());
+            transaction.commit();
             return {isValid, isValid ? std::optional<std::string>(userKey) : std::nullopt};
         }
 
@@ -77,10 +78,10 @@ class Database {
             bool keyCollected = !keyQuery.empty();
 
             if(keyCollected){
-
+                transaction.commit();
                 return keyQuery[0][0].c_str();
             }
-
+            transaction.commit();
             return std::nullopt;
 
        }

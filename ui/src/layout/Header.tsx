@@ -1,8 +1,9 @@
 import './header.css';
 
-import { BiRegularBell, BiRegularMap } from "solid-icons/bi";
+import { BiRegularBell, BiRegularMap, BiRegularSearch } from "solid-icons/bi";
 import Touchable from '../components/Touchable';
 import User from '../components/User';
+import Entry from '../components/Entry';
 
 
 
@@ -10,6 +11,15 @@ export default function Header(){
 
     return(<div class="header">
 
+            <div class="search-container">
+                <Entry
+                    type='search'
+                    placeholder='Buscar...'
+                    value=''
+                    icon={<BiRegularSearch/>}
+                    style={{"width" : "240px", "background-color" : "whitesmoke"}}
+                />                
+            </div>
             <Touchable
                 text='Mapa de leads'
                 icon={<BiRegularMap size={20}/>}
@@ -19,7 +29,8 @@ export default function Header(){
                         "font-size": "14px",
                         "font-weight": "bold",
                 }}
-            />                
+             />
+
                 <BiRegularBell
                     size={20}
                     style={{"cursor" : "pointer"}}

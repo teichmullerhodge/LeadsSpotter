@@ -27,5 +27,5 @@ def send_message(message: str) -> None:
 
 if __name__ == "__main__":
     
-    send_message("Hello, you are running in a c++ crow server. It's taking 3 seconds to your response being fullfilled. This is due to YOUR api being slow or my server?")
+    send_message("Hello, how are you?")
     

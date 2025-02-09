@@ -80,6 +80,7 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "forward_list": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "pqxx": "cpp"
     }
 }
