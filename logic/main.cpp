@@ -3,6 +3,7 @@
 #include "connections/database.hpp"
 #include "safe/hashpp.hpp"
 #include "network/http.hpp"
+#include "openai/chat.hpp"
 
 Database PG_INSTANCE;
 
@@ -130,7 +131,43 @@ int main() {
         }
     });
 
+    CROW_ROUTE(app, "/chat").methods("POST"_method)([](const crow::request& req) {
+        
+        crow::json::wvalue response;
 
+        try {
+
+            auto jsonBody = crow::json::load(req.body);
+            if (!jsonBody){
+                response["Reason"] = HTTP::NO_BODY;
+                return crow::response(HTTP::BAD_REQUEST, response);
+            }
+
+            std::string message = jsonBody["Message"].s();
+            if(message.empty()){
+             
+                response["Reason"] = HTTP::MISSING_FIELDS;
+                return crow::response(HTTP::BAD_REQUEST, response);
+
+            }
+
+            std::string contents = Chat::message(message);
+            response["Contents"] = contents;
+            return crow::response(HTTP::OK, response);
+
+
+
+        }
+
+        catch(const std::exception& e) {
+
+            Logger::log(e.what(), LoggerStatus::ERROR);
+            response["Reason"] = HTTP::GENERIC_ERROR;
+            return crow::response(HTTP::INTERNAL_SERVER_ERROR, response);
+
+        }
+
+    });
  
     app.port(8080).multithreaded().run();
 }

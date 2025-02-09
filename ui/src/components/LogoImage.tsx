@@ -9,22 +9,23 @@ interface LogoImageProperties {
     style?: JSX.CSSProperties,
     textSize?: string,
     hasText?: boolean
+    darkTheme?: boolean
 }
 
 
 export default function LogoImage(properties: LogoImageProperties){
 
     return(
-        <div class="logo-container" style={properties.style}>
+        <div class={properties.darkTheme ? "logo-container dark" : "logo-container"} style={properties.style}>
             <img 
-                class="logo"
+                class={properties.darkTheme ? "logo dark" : "logo"}
                 src="src/assets/logo.png"
                 width={properties.width}
                 height={properties.height}
             ></img>
             {
             properties.hasText ? 
-            <span class="lead">Lead <span class="spotter">spotter</span></span>
+            <span class={properties.darkTheme ? "lead dark" : "lead"}>Lead <span class= { properties.darkTheme ? "spotter dark" : "spotter"}>spotter</span></span>
             : <></>
             }
         </div>

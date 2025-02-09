@@ -8,8 +8,8 @@
     align-items: center;
     justify-content: center;
     gap:10px;
-    padding: 12px;
-    border-radius: 4px;
+    padding: 10px;
+    border-radius: 8px;
     width: 90%;
     border: none;
     transition: 0.2s;
@@ -20,7 +20,8 @@
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
-    background-color: var(--white);
+    background: none;
+    color: var(--white)
 }
 
 .icon-container:hover {

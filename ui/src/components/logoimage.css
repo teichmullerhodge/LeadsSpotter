@@ -6,13 +6,20 @@
 
 }
 
-
-
 .logo {
     cursor: pointer;
     background-color: var(--saphire);
     border-radius: 50px;
     padding: 2px;
+}
+
+.logo.dark {
+
+    cursor: pointer;
+    background: none;
+    border-radius: 50px;
+    padding: 2px;
+
 }
 
 .lead {
@@ -28,4 +35,17 @@
     text-decoration: var(--saphire-bold) wavy underline;
 }
 
+.lead.dark {
 
+    color: var(--white);
+    font-weight: 600;
+
+}
+.spotter.dark {
+
+    color: var(--white);
+    font-weight: 600;
+    text-decoration: var(--white) wavy underline;
+
+
+}

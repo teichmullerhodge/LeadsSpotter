@@ -1,7 +1,24 @@
+import './layout.css'
 import Sidebar from "./Sidebar";
+import Header from './Header';
 
-export default function Layout(){
+interface LayoutProperties {
+
+    activeRoute: 'home' | 'leads' | 'maps' |  'chat' | 'configurations'
+
+}
 
 
-    return(<Sidebar activeRoute="home"/>)
+export default function Layout(properties: LayoutProperties){
+
+
+    return(
+        <div class="app">
+            <Sidebar 
+                    activeRoute={properties.activeRoute}        
+            />
+            <Header/>
+        </div>
+    
+    )
 }

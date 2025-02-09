@@ -1,11 +1,11 @@
-import './home.css';
+import './maps.css';
 import Layout from '../layout/Layout';
 
 
-export default function Home(){
+export default function Maps(){
     
     return(
-        <Layout activeRoute='home'>
+        <Layout activeRoute='maps'>
 
 
             

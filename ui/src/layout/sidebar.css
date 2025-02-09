@@ -7,8 +7,9 @@
     gap: 10px;
     overflow: hidden;
     transition: 0.2s;
-    border-right: 1px solid var(--saphire);
-    background-color: var(--saphire);
+    background: rgb(45,39,134);
+    background: linear-gradient(309deg, rgba(45,39,134,1) 25%, rgb(77, 71, 156) 65%);
+    
 }
 .sidebar.min {
     width: 5vw;

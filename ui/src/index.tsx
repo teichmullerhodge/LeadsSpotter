@@ -5,7 +5,10 @@ import { lazy } from 'solid-js'
 import { Router } from '@solidjs/router'
 import Home from './pages/Home'
 import Laboratory from './pages/Laboratory'
-
+import Leads from './pages/Leads'
+import Maps from './pages/Maps'
+import Chat from './pages/Chat'
+import Configurations from './pages/Configurations'
 
 const root = document.getElementById('root')
 const routes = [ 
@@ -13,6 +16,22 @@ const routes = [
     {
         path: '/laboratory',
         component: Laboratory
+    },
+    {
+        path: '/leads',
+        component: Leads
+    },
+    {
+        path: '/maps',
+        component: Maps
+    },
+    {
+        path: '/chat',
+        component: Chat
+    },
+    {
+        path: '/configurations',
+        component: Configurations
     },
     {
         path: '/home',

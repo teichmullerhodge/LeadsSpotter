@@ -7,7 +7,9 @@ import { logout } from '../library/Session';
 import { createSignal } from 'solid-js';
 import MenuIcon from '../components/MenuIcon';
 import { LayoutState } from '../library/State';
-import { BiRegularArrowToLeft, BiRegularArrowToRight, BiRegularCog, BiRegularHome, BiRegularLogOut, BiRegularMap, BiRegularMessageRounded, BiRegularMoon, BiRegularSearch, BiRegularUser } from 'solid-icons/bi';
+import { BiRegularArrowToLeft, BiRegularArrowToRight, BiRegularCog, BiRegularHome, BiRegularLogOut, BiRegularMap, BiRegularMessageRounded, BiRegularMoon, BiRegularUser } from 'solid-icons/bi';
+import { Colors } from '../declarations/colors';
+
 interface SidebarProperties {
     activeRoute: 'home' | 'leads' | 'maps' | 'configurations' | 'chat',
 }
@@ -22,11 +24,11 @@ export default function Sidebar({ activeRoute }: SidebarProperties) {
         console.log("Estado armazenado: ", LayoutState.get_nav_state())
     }
     const menuItems = [
-        { text: 'Resumo', route: 'index', icon: <BiRegularHome size={19} /> },
-        { text: 'Leads', route: 'leads', icon: <BiRegularUser size={19} /> },
-        { text: 'Mapa de leads', route: 'maps', icon: <BiRegularMap size={19} /> },
-        { text: 'IA Sales', route: 'chat', icon: <BiRegularMessageRounded size={19}/>},
-        { text: 'Configurações', route: 'configurations', icon: <BiRegularCog size={19} /> },
+        { text: 'Resumo', route: 'home', icon: <BiRegularHome size={19} color={Colors.clear} /> },
+        { text: 'Leads', route: 'leads', icon: <BiRegularUser size={19} color={Colors.clear} /> },
+        { text: 'Mapa de leads', route: 'maps', icon: <BiRegularMap size={19} color={Colors.clear} /> },
+        { text: 'IA Sales', route: 'chat', icon: <BiRegularMessageRounded size={19}color={Colors.clear} />},
+        { text: 'Configurações', route: 'configurations', icon: <BiRegularCog size={19} color={Colors.clear} /> },
     ];
     return (
         <div class={expanded() ? "sidebar" : "sidebar min"}>
@@ -36,12 +38,14 @@ export default function Sidebar({ activeRoute }: SidebarProperties) {
                            style={{ "margin-top": "20px", "margin-bottom": "30px" }} 
                            textSize='20px' 
                            hasText={true}
+                           darkTheme={true}
                 />
                     : 
                 <LogoImage width='30' 
                            height='30' 
                            style={{ "margin-top": "20px", "margin-bottom": "30px" }} 
                            hasText={false}
+                           darkTheme={true}
                 />
             }
                         
@@ -66,10 +70,10 @@ export default function Sidebar({ activeRoute }: SidebarProperties) {
                 expanded() ? 
                 <MenuItem text='Logout' 
                           logout={true} 
-                          icon={<BiRegularLogOut size={19}/>} 
+                          icon={<BiRegularLogOut size={19} color={Colors.clear}/>} 
                           onclick={logout} 
                 />
-                : <MenuIcon icon={<BiRegularLogOut size={19}/>}
+                : <MenuIcon icon={<BiRegularLogOut size={19} color={Colors.clear}/>}
                             onclick={logout}
                             logout={true}
                             tooltip='Logout'
@@ -82,7 +86,7 @@ export default function Sidebar({ activeRoute }: SidebarProperties) {
                 <ToogleSwitch/>
             }
             <MenuIcon 
-                icon={expanded() ? <BiRegularArrowToLeft size={19} /> : <BiRegularArrowToRight size={19}/>} 
+                icon={expanded() ? <BiRegularArrowToLeft size={19} /> : <BiRegularArrowToRight size={19} />} 
                 onclick={() => expand_nav(!expanded())} 
                 tooltip='Expandir'
             />  

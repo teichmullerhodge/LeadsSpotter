@@ -18,7 +18,7 @@ export default function ToogleSwitch(properties: ToogleSwitchProperties){
 
     return(<div class="toogle-container" style={properties.style}>
                 {properties.icon}
-                {properties.label}
+                <span class="label">{properties.label}</span>
                 <div class="toogle" onclick={() => setActive(!active())}>
                     <div 
                         class= {active() ? "inner-circle active" : "inner-circle"} 

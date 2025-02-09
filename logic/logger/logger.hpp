@@ -30,14 +30,14 @@ class Logger {
             
             std::string color = Logger::get_color(status);
             std::string type = Logger::get_type(status);
-            std::cout << color << "[" << type << "] " << message << "\033[0m" << std::endl;
+            std::cout << color << "[" << type << "] " << message << "\033[0m" << '\n';
         }
 
      
         static void log_to_file(std::string message, std::string type, std::string file) {
             std::ofstream logFile;
             logFile.open(file, std::ios::app);
-            logFile << "[" << type << "] " << message << std::endl;
+            logFile << "[" << type << "] " << message << '\n';
             logFile.close();
         }
 

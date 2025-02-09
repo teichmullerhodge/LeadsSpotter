@@ -1,11 +1,11 @@
-import './home.css';
+import './leads.css';
 import Layout from '../layout/Layout';
 
 
-export default function Home(){
+export default function Leads(){
     
     return(
-        <Layout activeRoute='home'>
+        <Layout activeRoute='leads'>
 
 
             

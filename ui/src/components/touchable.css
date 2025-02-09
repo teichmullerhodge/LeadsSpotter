@@ -19,8 +19,7 @@
 }
 
 .touchable:hover {
-    background-color: var(--white);
-    color: var(--text-color);
+    opacity: 0.8;
 }
 
 

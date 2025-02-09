@@ -2,3 +2,4 @@ build
 Crow
 connections/credentials.h
 *.elf
+openai/secrets.hpp
